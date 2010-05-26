@@ -1,0 +1,7 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+t/Postscript-TextDecode.t
+lib/Postscript/TextDecode.pm
+META.yml                                 Module meta-data (added by MakeMaker)
