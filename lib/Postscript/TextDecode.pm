@@ -1,6 +1,7 @@
 package Postscript::TextDecode;
-
-$VERSION = '0.2';
+BEGIN {
+  $Postscript::TextDecode::VERSION = '0.3';
+}
 
 use 5.008008;
 use strict;
@@ -4516,7 +4517,7 @@ sub _unicode_mapping {
         my %zfdb_uc_to_glyph = map { sprintf("%04X", ord( $Zapfdingbats_Glyphs{$_} ) ) => $_ } keys %Zapfdingbats_Glyphs;
 
         $self->{ uc_to_glyph } = { %uc_to_glyph, %zfdb_uc_to_glyph };
-    }    
+    }
     return $self->{ uc_to_glyph };
 }
 
@@ -4541,9 +4542,9 @@ sub u_to_char {                     # 0x0000 .. 0xD7FF, 0xE000 .. 0x10FFFF
 #=======================
     my $self = shift;
     my $u    = shift;
-    
+
     $u =~ /^u([0-9ABCDEF]{4,6})$/;
-    
+
     return $self->glyph_to_char( $self->_unicode_mapping->{ $1 } );
 }
 
@@ -4568,7 +4569,7 @@ sub glyph_to_dec {
     my $glyph = shift;
     $self->encoding( shift );
 
-    return defined $glyph 
+    return defined $glyph
         ? $self->encoding->{glyph_to_dec}{ $glyph } || 0
         : 0
     ;
@@ -4606,17 +4607,17 @@ sub ps_to_text {
 
     while( $postscript =~ qr{\\(\d{1,3})} ) {           # \232
         my $decoded_char = $self->oct_to_char( $1 );
-        $postscript =~ s{\\$1}{$decoded_char}g;    
+        $postscript =~ s{\\$1}{$decoded_char}g;
     }
 
     while( $postscript =~ qr{/(u[ABCDEF0-9]{4,6})} ) {   # /uDEAD
         my $decoded_char = $self->u_to_char( $1 );
-        $postscript =~ s{\\$1}{$decoded_char}g;    
+        $postscript =~ s{\\$1}{$decoded_char}g;
     }
 
     while( $postscript =~ qr{/(uni[ABCDEF0-9]{4,})} ) {     # /uniDEADBEEF
         my $decoded_chars = $self->uni_to_chars( $1 );
-        $postscript =~ s{\\$1}{$decoded_chars}g;    
+        $postscript =~ s{\\$1}{$decoded_chars}g;
     }
 
     $postscript =~ s{\\\(}{\(}g;  # remove \ from \( - string escape seq
@@ -4640,7 +4641,7 @@ sub encoding {
 #=======================
     my $self = shift;
     if( my $encoding = shift ) {
-        $self->{_encoding} = _parse_encoding( $encoding );        
+        $self->{_encoding} = _parse_encoding( $encoding );
     }
     return $self->{_encoding} || die( "No encoding set!" );
 }
@@ -4649,7 +4650,7 @@ sub encoding {
 sub _parse_encoding {
 #=======================
     my $encoding = shift;
-    $encoding =~ s/\n//g;    
+    $encoding =~ s/\n//g;
 
     my $hash = md5_hex( $encoding );
     return $Stored_Encodings{ $hash } if exists $Stored_Encodings{ $hash };
@@ -4678,13 +4679,17 @@ __END__
 
 Postscript::TextDecode - decode special characters in postscript strings
 
+=head1 VERSION
+
+version 0.3
+
 =head1 SYNOPSIS
 
     use Postscript::TextDecode
 
     my $ps = Postscript::TextDecode->new;
     $ps->encoding( $encoding );
-    
+
     my $text $ps->ps_to_text( $postscript_string );
 
 =head1 DESCRIPTION
@@ -4715,7 +4720,7 @@ Returns uDEAF[..] notation to unicode character
 
 Returns uniDEADBEEFFEED[....] notation to unicode character
 
-=head2 ghlyph_to_char
+=head2 glyph_to_char
 
 Returns odieresis (glyph name) notation to unicode character
 
@@ -4753,5 +4758,3 @@ under the same terms as Perl itself.
 See http://www.perl.com/perl/misc/Artistic.html
 
 =cut
-
-

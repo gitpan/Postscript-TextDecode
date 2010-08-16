@@ -1,7 +1,10 @@
-Changes
-Makefile.PL
+LICENSE
 MANIFEST
+META.yml
+Makefile.PL
 README
-t/Postscript-TextDecode.t
+dist.ini
 lib/Postscript/TextDecode.pm
-META.yml                                 Module meta-data (added by MakeMaker)
+t/Postscript-TextDecode.t
+t/release-pod-coverage.t
+t/release-pod-syntax.t
