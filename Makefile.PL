@@ -12,7 +12,8 @@ my %WriteMakefileArgs = (
   'ABSTRACT' => 'decode special characters in postscript strings',
   'AUTHOR' => 'Job van Achterberg <jkva@cpan.org>',
   'BUILD_REQUIRES' => {
-    'Test::More' => '0'
+    'Test::More' => '0',
+    'Test::Most' => '0'
   },
   'CONFIGURE_REQUIRES' => {
     'ExtUtils::MakeMaker' => '6.31'
@@ -22,7 +23,7 @@ my %WriteMakefileArgs = (
   'LICENSE' => 'perl',
   'NAME' => 'Postscript::TextDecode',
   'PREREQ_PM' => {},
-  'VERSION' => '0.3',
+  'VERSION' => '0.3.1',
   'test' => {
     'TESTS' => 't/*.t'
   }
