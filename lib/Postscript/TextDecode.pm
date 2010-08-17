@@ -1,6 +1,6 @@
 package Postscript::TextDecode;
 BEGIN {
-  $Postscript::TextDecode::VERSION = '0.3.1';
+  $Postscript::TextDecode::VERSION = '0.4';
 }
 
 use 5.008008;
@@ -4681,7 +4681,7 @@ Postscript::TextDecode - decode special characters in postscript strings
 
 =head1 VERSION
 
-version 0.3.1
+version 0.4
 
 =head1 SYNOPSIS
 

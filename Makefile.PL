@@ -23,7 +23,7 @@ my %WriteMakefileArgs = (
   'LICENSE' => 'perl',
   'NAME' => 'Postscript::TextDecode',
   'PREREQ_PM' => {},
-  'VERSION' => '0.3.1',
+  'VERSION' => '0.4',
   'test' => {
     'TESTS' => 't/*.t'
   }
